@@ -6,7 +6,7 @@
 Pod::Spec.new do |s|
 
 	s.name = "MMMCataphote"
-	s.version = "1.0"
+	s.version = "1.0.2"
 	s.summary = "Limited reflection for Decodable types"
 	s.author = "MediaMonks"
 	s.license = "MIT"

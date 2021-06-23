@@ -151,7 +151,10 @@ public final class MMMCataphote {
 	/// This is to avoid duplicate descriptions for objects.
 	fileprivate final class ObjectStore {
 
-		public init() {
+		private let justKeepAlive: AnyObject
+
+		public init(justKeepAlive: AnyObject) {
+			self.justKeepAlive = justKeepAlive
 		}
 
 		public private(set) var objects: [String: Object] = [:]
@@ -202,7 +205,9 @@ public final class MMMCataphote {
 
 			let _ = try T.init(from: d)
 
-			let objectStore = ObjectStore()
+			// Swift wants to deallocate decoderStore too swiftly, we have to keep it alive somehow,
+			// tucking it into the ObjectStore() seems convenient and is not causing a ref cycle.
+			let objectStore = ObjectStore(justKeepAlive: decoderStore)
 
 			return Reflection(
 				typeInfo: d.typeInfo(objectStore),
