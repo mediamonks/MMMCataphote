@@ -1,5 +1,8 @@
 # MMMCataphote
 
+[![Build](https://github.com/mediamonks/MMMCataphote/workflows/Build/badge.svg)](https://github.com/mediamonks/MMMCataphote/actions?query=workflow%3ABuild)
+[![Test](https://github.com/mediamonks/MMMCataphote/workflows/Test/badge.svg)](https://github.com/mediamonks/MMMCataphote/actions?query=workflow%3ATest)
+
 Limited reflection for Decodable types.
 
 (This is a part of `MMMTemple` suite of iOS libraries we use at [MediaMonks](https://www.mediamonks.com/).)
@@ -28,26 +31,26 @@ pod 'MMMCataphote'
 A quick example here:
 
 	import MMMCataphote
-	
+
 	struct Person: Decodable {
 		let id: Int
 		let name: String
 		let height: Height
 	}
-	
+
 	struct Height: Decodable {
 		let height: Double
 	}
-	
+
 	print(MMMCataphote.reflect(Person.self))
 
 Prints the following:
 
 	Object(Person) where:
-	
+
 	Height:
 	 - height: Double
-	
+
 	Person:
 	 - height: Object(Height)
 	 - id: Int

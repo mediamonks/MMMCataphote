@@ -3,6 +3,8 @@
 // Copyright (C) 2016-2021 MediaMonks. All rights reserved.
 //
 
+import Foundation
+
 /// Limited reflection for `Decodable` types.
 ///
 /// The main objective for this is to be able to automatically generate lists of object fields and child entities to be
