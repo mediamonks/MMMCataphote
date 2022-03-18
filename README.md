@@ -37,33 +37,35 @@ SPM:
 
 A quick example here:
 
-	import MMMCataphote
+```swift
+import MMMCataphote
 
-	struct Person: Decodable {
-		let id: Int
-		let name: String
-		let height: Height
-	}
+struct Person: Decodable {
+	let id: Int
+	let name: String
+	let height: Height
+}
 
-	struct Height: Decodable {
-		let height: Double
-	}
+struct Height: Decodable {
+	let height: Double
+}
 
-	print(MMMCataphote.reflect(Person.self))
+print(MMMCataphote.reflect(Person.self))
+```
 
 Prints the following:
 
-	Object(Person) where:
+```swift
+Object(Person) where:
 
-	Height:
-	 - height: Double
+Height:
+- height: Double
 
-	Person:
-	 - height: Object(Height)
-	 - id: Int
-	 - name: String
+Person:
+- height: Object(Height)
+- id: Int
+- name: String
+```
 
 I.e. the value returned by `MMMCataphote.reflect` can be browsed to automatically build the lists of fields or entities
 to include into JSONAPI-like responses, for example.
-
----
