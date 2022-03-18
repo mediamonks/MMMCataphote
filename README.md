@@ -19,12 +19,19 @@ Limitations:
 
 Podfile:
 
-```
+```ruby
 source 'https://github.com/mediamonks/MMMSpecs.git'
 source 'https://cdn.cocoapods.org/'
 ...
 pod 'MMMCataphote'
 ```
+
+SPM:
+
+```swift
+.package(url: "https://github.com/mediamonks/MMMCataphote", .upToNextMajor(from: "1.0.3"))
+```
+
 
 ## Usage
 
