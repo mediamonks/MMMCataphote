@@ -69,3 +69,9 @@ Person:
 
 I.e. the value returned by `MMMCataphote.reflect` can be browsed to automatically build the lists of fields or entities
 to include into JSONAPI-like responses, for example.
+
+## Ready for liftoff? 🚀
+
+We're always looking for talent. Join one of the fastest-growing rocket ships in
+the business. Head over to our [careers page](https://media.monks.com/careers)
+for more info!
