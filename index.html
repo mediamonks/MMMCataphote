@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>MMMCataphote  Reference</title>
+    <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="css/highlight.css" />
+    <meta charset="utf-8">
+    <script src="js/jquery.min.js" defer></script>
+    <script src="js/jazzy.js" defer></script>
+    
+    <script src="js/lunr.min.js" defer></script>
+    <script src="js/typeahead.jquery.js" defer></script>
+    <script src="js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+
+
+    <a title="MMMCataphote  Reference"></a>
+
+    <header class="header">
+      <a href="https://media.monks.com">
+        <img src="img/logo.png" srcset="img/logo@2x.png 2x" alt="Media.Monks" class="header-logo" />
+      </a>
+    
+    
+    </header>
+
+    <p class="breadcrumbs">
+      <a class="breadcrumb" href="index.html">MMMCataphote Reference</a>
+      <img class="carat" src="img/carat.png" alt=""/>
+      MMMCataphote  Reference
+    </p>
+
+    <div class="content-wrapper">
+      <nav class="navigation">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/MMMCataphote.html">MMMCataphote</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/MMMCataphote/Reflection.html">– Reflection</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/MMMCataphote/Object.html">– Object</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/MMMCataphote/Field.html">– Field</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/MMMCataphote/TypeInfo.html">– TypeInfo</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+
+        <section class="section">
+          <div class="section-content top-matter">
+            
+            <h1 id='mmmcataphote' class='heading'>MMMCataphote</h1>
+
+<p><a href="https://github.com/mediamonks/MMMCataphote/actions?query=workflow%3ABuild"><img src="https://github.com/mediamonks/MMMCataphote/workflows/Build/badge.svg" alt="Build"></a>
+<a href="https://github.com/mediamonks/MMMCataphote/actions?query=workflow%3ATest"><img src="https://github.com/mediamonks/MMMCataphote/workflows/Test/badge.svg" alt="Test"></a></p>
+
+<p>Limited reflection for Decodable types.</p>
+
+<p>(This is a part of <code>MMMTemple</code> suite of iOS libraries we use at <a href="https://www.mediamonks.com/">MediaMonks</a>.)</p>
+
+<p>The main objective for this is to be able to automatically generate lists of object fields and child entities to be
+included into responses when working with JSONAPI-style responses.</p>
+
+<p>Limitations:
+1) there is very limited support for enum fields (only the ones that can decode from a string &ldquo;dummy&rdquo;);
+2) any dictionary is assumed to have <code>String</code> keys, could be resolved by parsing type names;
+3) it might not work well with <code>Decodable</code>s that use custom initializers.</p>
+<h2 id='installation' class='heading'>Installation</h2>
+
+<p>Podfile:</p>
+<pre class="highlight ruby"><code><span class="n">source</span> <span class="s1">'https://github.com/mediamonks/MMMSpecs.git'</span>
+<span class="n">source</span> <span class="s1">'https://cdn.cocoapods.org/'</span>
+<span class="p">.</span><span class="nf">.</span><span class="p">.</span>
+<span class="nf">pod</span> <span class="s1">'MMMCataphote'</span>
+</code></pre>
+
+<p>SPM:</p>
+<pre class="highlight swift"><code><span class="o">.</span><span class="nf">package</span><span class="p">(</span><span class="nv">url</span><span class="p">:</span> <span class="s">"https://github.com/mediamonks/MMMCataphote"</span><span class="p">,</span> <span class="o">.</span><span class="nf">upToNextMajor</span><span class="p">(</span><span class="nv">from</span><span class="p">:</span> <span class="s">"1.0.3"</span><span class="p">))</span>
+</code></pre>
+<h2 id='usage' class='heading'>Usage</h2>
+
+<p>A quick example here:</p>
+<pre class="highlight swift"><code><span class="kd">import</span> <span class="kt">MMMCataphote</span>
+
+<span class="kd">struct</span> <span class="kt">Person</span><span class="p">:</span> <span class="kt">Decodable</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">Int</span>
+    <span class="k">let</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span>
+    <span class="k">let</span> <span class="nv">height</span><span class="p">:</span> <span class="kt">Height</span>
+<span class="p">}</span>
+
+<span class="kd">struct</span> <span class="kt">Height</span><span class="p">:</span> <span class="kt">Decodable</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">height</span><span class="p">:</span> <span class="kt">Double</span>
+<span class="p">}</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="kt">MMMCataphote</span><span class="o">.</span><span class="nf">reflect</span><span class="p">(</span><span class="kt">Person</span><span class="o">.</span><span class="k">self</span><span class="p">))</span>
+</code></pre>
+
+<p>Prints the following:</p>
+<pre class="highlight swift"><code><span class="kt">Object</span><span class="p">(</span><span class="kt">Person</span><span class="p">)</span> <span class="nv">where</span><span class="p">:</span>
+
+<span class="kt">Height</span><span class="p">:</span>
+<span class="o">-</span> <span class="nv">height</span><span class="p">:</span> <span class="kt">Double</span>
+
+<span class="kt">Person</span><span class="p">:</span>
+<span class="o">-</span> <span class="nv">height</span><span class="p">:</span> <span class="kt">Object</span><span class="p">(</span><span class="kt">Height</span><span class="p">)</span>
+<span class="o">-</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">Int</span>
+<span class="o">-</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span>
+</code></pre>
+
+<p>I.e. the value returned by <code>MMMCataphote.reflect</code> can be browsed to automatically build the lists of fields or entities
+to include into JSONAPI-like responses, for example.</p>
+<h2 id='ready-for-liftoff' class='heading'>Ready for liftoff? 🚀</h2>
+
+<p>We&rsquo;re always looking for talent. Join one of the fastest-growing rocket ships in
+the business. Head over to our <a href="https://media.monks.com/careers">careers page</a>
+for more info!</p>
+
+          </div>
+        </section>
+
+
+      </article>
+    </div>
+    <section class="footer">
+      <p>&copy; 2022 <a class="link" href="https://github.com/mediamonks/MMMCataphote" target="_blank" rel="external noopener">MediaMonks</a>. All rights reserved. (Last updated: 2022-04-26)</p>
+      <p></p>
+    </section>
+  </body>
+</html>
